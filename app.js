@@ -32,8 +32,9 @@ navToggle.addEventListener('click', ()=>{
 // ********** fixed navbar ************
 const navbar = document.getElementById('nav');
 const topLink = document.querySelector('.top-link')
+
 window.addEventListener('scroll', () => {
-    console.log(window.pageYOffset);
+    // console.log(window.pageYOffset);
     const scrollHeight = window.pageYOffset;
     const navHeight = navbar.getBoundingClientRect().height;
     if (scrollHeight > navHeight){
@@ -42,7 +43,33 @@ window.addEventListener('scroll', () => {
         navbar.classList.remove('fixed-nav')
     }
 
+    // button to bring back to top of page
+    if (scrollHeight > 500){
+        topLink.classList.add('show-link')
+    } else {
+        topLink.classList.remove('show-link')
+    }
 });
 
 // ********** smooth scroll ************
 // select links
+const scrollLinks = document.querySelectorAll('.scroll-link');
+
+scrollLinks.forEach((link)=> {
+    link.addEventListener('click', (event)=>{
+        // prevent default
+        event.preventDefault();
+        // navigate to specific spot
+        const id = event.currentTarget.getAttribute('href').slice(1);
+        console.log(id);
+        const element = document.getElementById(id);
+        let position = element.offsetTop;
+        console.log(position);
+
+        window.scrollTo({
+            left:0,
+            top: position,
+        });
+        linksContainer.style.height = 0;
+    });
+});
